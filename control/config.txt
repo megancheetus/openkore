@@ -1,6 +1,23 @@
 # Please Read the Users Manual
 # The Manual is located at https://openkore.com/wiki/Manual
 
+######## Login options and server-specific options ########
+
+master Latam - ROla: Freya/Nidhogg/Yggdrasil
+server
+username
+password
+loginPinCode
+char
+otpSeed
+
+###################XKore###################################
+
+XKore_autoAttachIfOneExe 0
+XKore_silent 1
+XKore_bypassBotDetection 0
+XKore_exeName ragexe.exe
+
 # XKore 3 / Proxy configuration
 XKore 3
 XKore_listenIp 0.0.0.0
