@@ -11,18 +11,16 @@ loginPinCode
 char
 otpSeed
 
-###################XKore###################################
-
+###################XKore 5.0###################################
+# XKore 3 / Proxy configuration
+XKore 3
+XKore_listenIp 0.0.0.0
+XKore_listenPort 6900
+XKore_publicIp # O QUE FOI DEFINIDO NO PROXY LOCAL
 XKore_autoAttachIfOneExe 0
 XKore_silent 1
 XKore_bypassBotDetection 0
 XKore_exeName ragexe.exe
-
-# XKore 3 / Proxy configuration
-XKore 3
-XKore_listenIp 0.0.0.0
-XKore_listenPort #MESMA PORTA QUE VC COLOCAR NO CLIENTINFO
-XKore_publicIp #O SEU IP 172.65.XXX.XXX 
 
 
 # It is not advised to set secureAdminPassword if you're using Xkore 2
