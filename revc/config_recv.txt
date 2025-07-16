@@ -1,8 +1,8 @@
 # Arquivo de configuração para recv.cpp
 # Endereços de memória do cliente RO (valores em hexadecimal)
-clientSubAddress=B8D500
-instanceRAddress=B8DA60
-recvPtrAddress=1467C20
+clientSubAddress=B8B780
+instanceRAddress=B8BCD0
+recvPtrAddress=1463ED0
 
 # Configurações do servidor xKore
 koreServerIP=172.65.175.70
