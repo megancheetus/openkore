@@ -26,7 +26,7 @@ poseidon_wait_reply 15
 # Activate AI after x seconds after the map's loaded
 ai 1
 
-ai_move_retry 0.25
+ai_move_retry 0.5
 ai_move_giveup 1
 
 ai_homunculus_standby 0.5
@@ -70,9 +70,9 @@ ai_homunculus_attack_waitAfterKill 0.3
 ai_mercenary_attack_waitAfterKill 0.3
 
 # Every x seconds loop the attack logic routine (send move, attack, skill, avoid, etc)
-ai_attack_main 0.1
-ai_homunculus_attack_main 0.1
-ai_mercenary_attack_main 0.1
+ai_attack_main 0.5
+ai_homunculus_attack_main 0.5
+ai_mercenary_attack_main 0.5
 
 ai_attack_unstuck 2.75
 ai_attack_unfail 12
@@ -82,17 +82,17 @@ ai_route_unstuck 2
 # Pause for the specified number of seconds after taking something,
 # it increases the interval between taking several items and between
 # taking the last item and continuing the actions.
-ai_items_take_delay 1
+ai_items_take_delay 2
 
 # When your monster died, start checking for loot after x seconds
-ai_items_take_start 0.3
+ai_items_take_start 1
 
 # Stop checking for loot x seconds after it has begun checking
-ai_items_take_end 0.6
+ai_items_take_end 1
 
 # When standing near an item, send the 'take' packet every x seconds until
 # the item has been taken.
-ai_take .4
+ai_take 1
 
 # Give up if unable to pickup item after x seconds
 ai_take_giveup 3
@@ -102,7 +102,7 @@ ai_items_gather_giveup 3
 ai_items_gather_auto .3
 
 # Only gather items that have been more than x seconds on screen
-ai_items_gather_start .3
+ai_items_gather_start 1
 
 # Delay between items when tranferring in batches.
 ai_transfer_items 0.15
