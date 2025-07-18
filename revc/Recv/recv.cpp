@@ -12,10 +12,13 @@
 #include <unordered_map>
 #include <algorithm>
 #include <cstring>
+#include <mutex>
 
 #pragma comment(lib, "ws2_32.lib")
-
 using namespace std;
+
+// Declaração global do mutex para proteger xkoreSendBuf
+std::mutex xkoreBufMutex;
 
 // Enum para tipo de pacote
 enum e_PacketType {
@@ -122,28 +125,23 @@ std::string BytesToHex(const char* data, int length) {
     return ss.str();
 }
 
-// Função para enviar dados para Kore
 void sendDataToKore(char* buffer, int len, e_PacketType type) {
-    if (koreClientIsAlive) {
-        char* newbuf        = (char*)malloc(len + 3);
-        unsigned short sLen = (unsigned short)len;
-
-        // Prefixo "R" ou "S"
-        if (type == e_PacketType::RECEIVED) {
-            memcpy(newbuf, "R", 1);
-        }
-        else {
-            memcpy(newbuf, "S", 1);
-        }
-        memcpy(newbuf + 1, &sLen, 2);
-        memcpy(newbuf + 3, buffer, len);
-        xkoreSendBuf.append(newbuf, len + 3);
-        free(newbuf);
-
-        std::cout << "Dados adicionados ao buffer (" << (len + 3)
-                  << " bytes, tipo: " << (type == RECEIVED ? "R" : "S") << ")" << std::endl;
+    if (!koreClientIsAlive) return;
+    unsigned short sLen = static_cast<unsigned short>(len);
+    std::string packet;
+    packet.reserve(len + 3);  
+    // Prefixo "R" ou "S"
+    packet += (type == RECEIVED ? 'R' : 'S');
+    packet.append(reinterpret_cast<const char*>(&sLen), 2);
+    packet.append(buffer, len);
+    {
+        std::lock_guard<std::mutex> lock(xkoreBufMutex);
+        xkoreSendBuf.append(packet);
     }
+    std::cout << "Dados adicionados ao buffer (" << (len + 3)
+              << " bytes, tipo: " << (type == RECEIVED ? "R" : "S") << ")" << std::endl;
 }
+
 
 // Nossa função recv hookada
 int WINAPI hooked_recv(SOCKET s, char* buf, int len, int flags) {
@@ -642,27 +640,32 @@ DWORD WINAPI koreConnectionMain(LPVOID lpParam) {
             }
         }
 
-        // Enviar dados para o servidor xKore
-        if (xkoreSendBuf.size()) {
-            if (isAlive) {
-                send(koreClient, (char*)xkoreSendBuf.c_str(), xkoreSendBuf.size(), 0);
-            }
-            else {
-                // xKore não está rodando; envia direto para o servidor RO
-                Packet* packet;
-                int next;
+{
+    std::lock_guard<std::mutex> lock(xkoreBufMutex);
 
-                while ((packet = unpackPacket(xkoreSendBuf.c_str(), xkoreSendBuf.size(), next))) {
-                    if (packet->ID == 'S')
-                        send(roServer, (char*)packet->data, packet->len, 0);
-                    free(packet->data);
-                    free(packet);
-                    koreClientRecvBuf.erase(0, next);
+    if (!xkoreSendBuf.empty()) {
+        if (isAlive) {
+            // OpenKore está conectado: envia tudo pelo socket local
+            send(koreClient, xkoreSendBuf.c_str(), static_cast<int>(xkoreSendBuf.size()), 0);
+        } else {
+            // OpenKore não está conectado: envia os pacotes diretamente ao servidor do jogo
+            Packet* packet;
+            int next = 0;
+
+            while ((packet = unpackPacket(xkoreSendBuf.c_str(), xkoreSendBuf.size(), next))) {
+                if (packet->ID == 'S' && roServer != INVALID_SOCKET) {
+                    send(roServer, packet->data, packet->len, 0);
                 }
+                free(packet->data);
+                free(packet);
+                xkoreSendBuf.erase(0, next);
             }
-            xkoreSendBuf.clear();
         }
 
+        // Limpa o buffer global após o envio (sempre dentro do mutex)
+        xkoreSendBuf.clear();
+    }
+}
         // Ping para manter conexão viva
         if (koreClientIsAlive && GetTickCount() - koreClientPingTimeout > PING_INTERVAL) {
             send(koreClient, pingPacket, 3, 0);
