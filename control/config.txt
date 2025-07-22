@@ -1,6 +1,3 @@
-# Please Read the Users Manual
-# The Manual is located at https://openkore.com/wiki/Manual
-
 ######## Login options and server-specific options ########
 
 master
@@ -22,6 +19,7 @@ forceMapIP
 
 # 1 = hook into RO client, 2 = Act as stand-alone proxy, proxy = act as true proxy
 # https://openkore.com/wiki/XKore
+
 XKore 0
 XKore_port 2350
 XKore_dll NetRedirect.dll
@@ -92,13 +90,6 @@ aggressiveAntiKS 0
 
 attackUpdateMonsterPos 1
 
-# the following attack keys are meant to work only in private server (rAthena/Hercules)
-# if you enable this in a official server you character will act weird, because character can't attack beyond the range
-attackBeyondMaxDistance_waitForAgressive 0
-attackBeyondMaxDistance_sendAttackWhileWaiting 0
-attackSendAttackWithMove 0
-attackWaitApproachFinish 1
-
 autoMoveOnDeath 0
 autoMoveOnDeath_x
 autoMoveOnDeath_y
@@ -115,19 +106,6 @@ attackEquip_robe
 attackEquip_armor
 attackEquip_shoes
 attackEquip_arrow
-
-# You need the breakTime plugin: https://openkore.com/wiki/BreakTime
-autoBreakTime {
-	startTime
-	stopTime
-}
-
-autoConfChange {
-	minTime
-	varTime
-	lvl
-	joblvl
-}
 
 autoMakeArrows 0
 
@@ -389,153 +367,6 @@ status_mapType 0
 
 monster_filter
 
-######## Mercenary Support ########
-
-mercenary_attackAuto 2
-mercenary_attackAuto_party 1
-mercenary_attackAuto_notInTown 1
-mercenary_attackAuto_inLockOnly 1
-mercenary_attackAuto_notWhile_storageAuto 1
-mercenary_attackAuto_notWhile_buyAuto 1
-mercenary_attackAuto_notWhile_sellAuto 1
-mercenary_attackAuto_considerDamagedAggressive 0
-mercenary_attackAuto_onlyWhenSafe 0
-mercenary_attackAuto_duringRandomWalk 0
-mercenary_attackAuto_duringItemsTake 0
-mercenary_attackDistance 1
-mercenary_attackMaxDistance 1
-mercenary_attackDistanceAuto 1
-mercenary_attackMaxRouteTime 4
-mercenary_attackCanSnipe 0
-mercenary_attackCheckLOS 1
-mercenary_attackRouteMaxPathDistance 20
-mercenary_attackUseWeapon 1
-mercenary_attackNoGiveup 0
-mercenary_attackChangeTarget 1
-mercenary_attack_dance_melee 0
-mercenary_attack_dance_ranged 0
-
-mercenary_attackBeyondMaxDistance_waitForAgressive 0
-mercenary_attackBeyondMaxDistance_sendAttackWhileWaiting 0
-mercenary_attackSendAttackWithMove 0
-mercenary_attackWaitApproachFinish 1
-
-mercenary_lost_teleportToMaster_maxTries 6
-
-mercenary_route_randomWalk_rescueWhenLost 0
-mercenary_route_randomWalk_stopDuringAttack 0
-mercenary_route_randomWalk_waitMinDistance 0
-
-mercenary_runFromTarget 0
-mercenary_runFromTarget_inAdvance 0
-mercenary_runFromTarget_dist 5
-mercenary_runFromTarget_minStep 7
-mercenary_runFromTarget_maxPathDistance 20
-mercenary_runFromTarget_noAttackMethodFallback 0
-mercenary_runFromTarget_noAttackMethodFallback_attackMaxDist 14
-mercenary_runFromTarget_noAttackMethodFallback_minStep 8
-
-mercenary_idleWalkType 1
-mercenary_followDistanceMin 3
-mercenary_followDistanceMax 12
-
-mercenary_moveNearWhenIdle 1
-mercenary_moveNearWhenIdle_minDistance 3
-mercenary_moveNearWhenIdle_maxDistance 8
-
-mercenary_route_step 10
-
-mercenary_tankMode 0
-mercenary_tankModeTarget
-
-mercenary_teleportAuto_hp 10
-mercenary_teleportAuto_maxDmg 500
-mercenary_teleportAuto_maxDmgInLock 0
-mercenary_teleportAuto_deadly 1
-mercenary_teleportAuto_unstuck 0
-mercenary_teleportAuto_dropTarget 0
-mercenary_teleportAuto_dropTargetKS 0
-mercenary_teleportAuto_totalDmg 0
-mercenary_teleportAuto_totalDmgInLock 0
-mercenary_teleportAuto_attackedWhenSitting 0
-
-######## Homunculus Support ########
-
-homunculus_attackAuto 2
-homunculus_attackAuto_party 1
-homunculus_attackAuto_notInTown 1
-homunculus_attackAuto_inLockOnly 1
-homunculus_attackAuto_notWhile_storageAuto 1
-homunculus_attackAuto_notWhile_buyAuto 1
-homunculus_attackAuto_notWhile_sellAuto 1
-homunculus_attackAuto_considerDamagedAggressive 0
-homunculus_attackAuto_onlyWhenSafe 0
-homunculus_attackAuto_duringRandomWalk 0
-homunculus_attackAuto_duringItemsTake 0
-homunculus_attackDistance 1
-homunculus_attackMaxDistance 1
-homunculus_attackDistanceAuto 1
-homunculus_attackMaxRouteTime 4
-homunculus_attackCanSnipe 0
-homunculus_attackCheckLOS 1
-homunculus_attackRouteMaxPathDistance 20
-homunculus_attackUseWeapon 1
-homunculus_attackNoGiveup 0
-homunculus_attackChangeTarget 1
-homunculus_attack_dance_melee 0
-
-homunculus_attackBeyondMaxDistance_waitForAgressive 0
-homunculus_attackBeyondMaxDistance_sendAttackWhileWaiting 0
-homunculus_attackSendAttackWithMove 0
-homunculus_attackWaitApproachFinish 1
-
-homunculus_lost_teleportToMaster_maxTries 6
-
-homunculus_route_randomWalk_rescueWhenLost 0
-homunculus_route_randomWalk_stopDuringAttack 0
-homunculus_route_randomWalk_waitMinDistance 0
-
-homunculus_runFromTarget 0
-homunculus_runFromTarget_dist 5
-homunculus_runFromTarget_minStep 7
-homunculus_runFromTarget_maxPathDistance 20
-homunculus_runFromTarget_noAttackMethodFallback 0
-homunculus_runFromTarget_noAttackMethodFallback_attackMaxDist 14
-homunculus_runFromTarget_noAttackMethodFallback_minStep 8
-
-homunculus_idleWalkType 1
-homunculus_followDistanceMin 3
-homunculus_followDistanceMax 12
-
-homunculus_moveNearWhenIdle 1
-homunculus_moveNearWhenIdle_minDistance 3
-homunculus_moveNearWhenIdle_maxDistance 8
-
-homunculus_route_step 10
-
-homunculus_tankMode 0
-homunculus_tankModeTarget
-
-homunculus_StandByAuto 0
-homunculus_teleportAuto_hp 10
-homunculus_teleportAuto_maxDmg 500
-homunculus_teleportAuto_maxDmgInLock 0
-homunculus_teleportAuto_deadly 1
-homunculus_teleportAuto_unstuck 0
-homunculus_teleportAuto_dropTarget 0
-homunculus_teleportAuto_dropTargetKS 0
-homunculus_teleportAuto_totalDmg 0
-homunculus_teleportAuto_totalDmgInLock 0
-homunculus_teleportAuto_attackedWhenSitting 0
-
-# Turn on/off homunculus autofeeding
-homunculus_autoFeed 1
-# Feed homunculus when meet the hunger value (homunculus_hunger > homunculus_return)
-homunculus_hunger 15
-# Return homunculus when meet the hunger value
-homunculus_return 11
-# In Wich maps should we allow feeding? (leave empty for any map)
-homunculus_autoFeedAllowedMaps
 
 # Turn on/off pet autofeeding
 pet_autoFeed 1
@@ -544,9 +375,6 @@ pet_hunger 25
 # Return pet when meet the hunger value
 pet_return 20
 
-######## Block options ########
-# You can copy & paste any block multiple times. So if you want to
-# configure two attack skills, just duplicate the attackSkillSlot block.
 
 attackSkillSlot {
 	lvl
@@ -638,332 +466,20 @@ attackComboSlot {
 }
 
 doCommand {
-	hp
-	sp
-	ap
-	homunculus
-	homunculus_hp
-	homunculus_sp
-	homunculus_dead
-	homunculus_resting
-	homunculus_noinfo_dead
-	homunculus_noinfo_resting
-	homunculus_onAction
-	homunculus_notOnAction
-	homunculus_whenIdle
-	homunculus_whenNotIdle
-	mercenary
-	mercenary_hp
-	mercenary_sp
-	mercenary_whenStatusActive
-	mercenary_whenStatusInactive
-	mercenary_onAction
-	mercenary_notOnAction
-	mercenary_whenIdle
-	mercenary_whenNotIdle
-	onAction
-    inQueue
-    notInQueue
-	whenStatusActive
-	whenStatusInactive
-	whenFollowing
-	spirit
-	amuletType
-	aggressives
-	monsters
-	notMonsters
-	monstersCount
-	monstersCountDist
-	stopWhenHit 0
-	inLockOnly 0
-	notWhileSitting 0
-	notInTown 0
-	timeout
-	disabled 0
-	whenPartyMembersNear
-	whenPartyMembersNearDist
-	inInventory
-	inCart
-	inMap
-	manualAI 0
+
 }
 
 useSelf_skill {
-	lvl
-	maxCastTime 0
-	minCastTime 0
-	hp
-	sp
-	ap
-	homunculus
-	homunculus_hp
-	homunculus_sp
-	homunculus_dead
-	homunculus_resting
-	homunculus_noinfo_dead
-	homunculus_noinfo_resting
-	homunculus_onAction
-	homunculus_notOnAction
-	homunculus_whenIdle
-	homunculus_whenNotIdle
-	mercenary
-	mercenary_hp
-	mercenary_sp
-	mercenary_whenStatusActive
-	mercenary_whenStatusInactive
-	mercenary_onAction
-	mercenary_notOnAction
-	mercenary_whenIdle
-	mercenary_whenNotIdle
-	onAction
-    inQueue
-    notInQueue
-	whenStatusActive
-	whenStatusInactive
-	whenFollowing
-	spirit
-	amuletType
-	aggressives
-	monsters
-	notMonsters
-	monstersCount
-	monstersCountDist
-	stopWhenHit 0
-	inLockOnly 0
-	notWhileSitting 0
-	notInTown 0
-	timeout 0
-	disabled 0
-	whenPartyMembersNear
-	whenPartyMembersNearDist
-	inInventory
-	manualAI 0
-}
 
-useSelf_skill_smartHeal 1
+}
 
 partySkillDistance 0..8
 
 partySkill {
-	lvl
-	dist 1
-	maxDist 8
-	maxCastTime 0
-	minCastTime 0
-	hp
-	sp
-	ap
-	homunculus
-	homunculus_hp
-	homunculus_sp
-	homunculus_dead
-	homunculus_resting
-	homunculus_noinfo_dead
-	homunculus_noinfo_resting
-	homunculus_onAction
-	homunculus_notOnAction
-	homunculus_whenIdle
-	homunculus_whenNotIdle
-	mercenary
-	mercenary_hp
-	mercenary_sp
-	mercenary_whenStatusActive
-	mercenary_whenStatusInactive
-	mercenary_onAction
-	mercenary_notOnAction
-	mercenary_whenIdle
-	mercenary_whenNotIdle
-	onAction
-    inQueue
-    notInQueue
-	whenStatusActive
-	whenStatusInactive
-	whenFollowing
-	spirit
-	amuletType
-	aggressives
-	monsters
-	notMonsters
-	monstersCount
-	monstersCountDist
-	stopWhenHit 0
-	inLockOnly 0
-	notWhileSitting 0
-	notInTown 0
-	timeout 0
-	disabled 0
-	manualAI 0
-	target
-	target_hp
-	target_isJob
-	target_isNotJob
-	target_whenStatusActive
-	target_whenStatusInactive
-	target_aggressives
-	target_monsters
-	target_timeout 0
-	target_deltaHp
-	target_dead 0
-	whenPartyMembersNear
-	whenPartyMembersNearDist
-	inInventory
-	isSelfSkill 0
-}
 
-monsterSkill {
-	target
-	maxUses
-	whenPartyMembersNear
-	whenPartyMembersNearDist
-	# Skill Use Conditions, including isSelfSkill
-	# Self Conditions
-	# Target Monster Conditions
-}
-
-autoSwitch_default_rightHand
-autoSwitch_default_leftHand
-autoSwitch_default_arrow
-
-# NOTE: In the case of two handed weapons, or no Shield,
-#       duplicate the weapon name for 'rightHand'
-# To attack with bare hands, specify "[NONE]" (without the quotes) for rightHand
-
-autoSwitch {
-	rightHand
-	leftHand
-	arrow
-	distance
-	useWeapon
-}
-
-equipAuto {
-	topHead
-	midHead
-	lowHead
-	leftHand
-	rightHand
-	leftAccessory
-	rightAccessory
-	robe
-	armor
-	shoes
-	arrow
-	monsters
-	notMonsters
-	monstersCount
-	monstersCountDist
-	weight 0
-	whileSitting 0
-	hp
-	sp
-	ap
-	homunculus
-	homunculus_hp
-	homunculus_sp
-	homunculus_dead
-	homunculus_resting
-	homunculus_noinfo_dead
-	homunculus_noinfo_resting
-	homunculus_onAction
-	homunculus_notOnAction
-	homunculus_whenIdle
-	homunculus_whenNotIdle
-	mercenary
-	mercenary_hp
-	mercenary_sp
-	mercenary_whenStatusActive
-	mercenary_whenStatusInactive
-	mercenary_onAction
-	mercenary_notOnAction
-	mercenary_whenIdle
-	mercenary_whenNotIdle
-	onAction
-    inQueue
-    notInQueue
-	whenStatusActive
-	whenStatusInactive
-	whenFollowing
-	spirit
-	amuletType
-	aggressives
-	stopWhenHit 0
-	inLockOnly 0
-	notWhileSitting 0
-	notInTown 0
-	timeout 0
-	disabled 0
-	whenPartyMembersNear
-	whenPartyMembersNearDist
-	inInventory
-	manualAI 0
-}
-
-useSelf_item {
-	hp
-	sp
-	ap
-	homunculus
-	homunculus_hp
-	homunculus_sp
-	homunculus_dead
-	homunculus_resting
-	homunculus_noinfo_dead
-	homunculus_noinfo_resting
-	homunculus_onAction
-	homunculus_notOnAction
-	homunculus_whenIdle
-	homunculus_whenNotIdle
-	mercenary
-	mercenary_hp
-	mercenary_sp
-	mercenary_whenStatusActive
-	mercenary_whenStatusInactive
-	mercenary_onAction
-	mercenary_notOnAction
-	mercenary_whenIdle
-	mercenary_whenNotIdle
-	onAction
-    inQueue
-    notInQueue
-	whenStatusActive
-	whenStatusInactive
-	whenFollowing
-	spirit
-	amuletType
-	aggressives
-	monsters
-	notMonsters
-	monstersCount
-	monstersCountDist
-	stopWhenHit 0
-	inLockOnly 0
-	notWhileSitting 0
-	notInTown 0
-	timeout 0
-	disabled 0
-	whenPartyMembersNear
-	whenPartyMembersNearDist
-	inInventory
-	manualAI 0
 }
 
 ######## Autostorage/autosell ########
-
-buyAuto {
-	npc
-	npc_steps b
-	isMarket 0
-	standpoint
-	distance 3
-	price
-	minAmount 2
-	maxAmount 3
-	batchSize
-	onlyIdentified
-	disabled 0
-	maxBase
-	minBase
-}
 
 sellAuto 0
 sellAuto_npc
