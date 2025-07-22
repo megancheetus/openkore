@@ -3,7 +3,7 @@ package OpenkoreToDiscord;
 # ====================================================================
 # Plugin OpenkoreToDiscord
 #
-# Autor: Doc (megancheetus) e Sonic com revisão;
+# Autor: Sherolayne, com pequenas modificações do Doc  e Sonic.
 # Data da Versão: 11 de Julho de 2025
 #
 # Descrição:

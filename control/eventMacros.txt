@@ -1,0 +1,140 @@
+##########################################################################
+# CONFIGURAÇÕES GERAIS DO USUÁRIO
+##########################################################################
+sub configurarParametrosUsuario {
+    my %parametrosUsuario = (
+        pesoParaVender        => 70, #em percentual
+        hpParaUsarPocao       => 50, #em percentual
+        pocaoParaUsar         => 'Poção Laranja', #nome da poção a ser usada
+        minPocao              => 30, #mínimo de poções de que vão ser compradas
+        maxPocao              => 120, #máximo de poções de que vão ser compradas
+        zenyMinPot  => 30000, #só realiza compra de pots se tiver mais que esse valor
+    );
+    return \%parametrosUsuario;
+}
+
+#-------------------------------------------------------------------------------------
+# ---- Configuração NPCS Compra/Venda ----
+#-------------------------------------------------------------------------------------
+sub obterNpcDaCidade {
+    my $cidade = $config{saveMap} || $config{lockMap} || "prontera";
+    my %npc = (
+        prontera  => ["prt_in",     126, 76], 
+        payon     => ["payon_in01",  5,  49], 
+        izlude    => ["prt_in",     126, 76], 
+        geffen    => ["geffen_in",  77, 167], 
+        morocc    => ["morocc_in",   141, 6], 
+        yuno      => ["yuno_in01",   25, 34],  
+        aldebaran => ["aldeba_in",   94, 56], 
+        louyang   => ["lou_in01",  196, 104] #falta validar coordenadas
+    );
+    my $dados = $npc{$cidade} // $npc{prontera};
+    return { mapa => $dados->[0], x => $dados->[1], y => $dados->[2] };
+}
+
+
+#-------------------------------------------------------------------------------------
+# ---- RODEX ENVIA 100K DE ZENNY POR VÊS ----
+#-------------------------------------------------------------------------------------
+
+automacro ZenyRodex {
+    Zeny >= 110000
+    exclusive 1
+    macro_delay 2
+    timeout 1800
+    call {
+        if (&config(rodexReceiver) == $.name) goto dontSend
+        goto sendIt
+
+        :dontSend
+            log [Rodex] Você é o destinatário configurado. Não vai enviar Zeny.
+            lock ZenyRodex
+            stop
+
+        :sendIt
+            $totalZeny = 100000
+            $receiver = &config(rodexReceiver)
+            $mailTitle = Zeny
+            $mailBody = Zeny
+
+            log [Rodex] Enviando Zeny para $receiver
+            do rodex open
+            do rodex write $receiver
+            do rodex settarget $receiver
+            do rodex settitle $mailTitle
+            do rodex setbody $mailBody
+            do rodex setzeny $totalZeny
+            do rodex send
+            do rodex close
+    }
+}
+
+
+#-------------------------------------------------------------------------------------
+# ---- RODEX ENVIA CARTAS ----
+#-------------------------------------------------------------------------------------
+
+automacro RodexCards {
+    Zeny >= 2500
+    exclusive 1
+    macro_delay 2
+    timeout 1800
+    call MailCards
+}
+
+macro MailCards {
+    $cards = &InventoryType(card)
+    @cardList = &split(',', $cards)
+    $cardCount = @cardList
+
+    if ($cardList[0] == -1) goto noCards
+    if (&config(rodexReceiver) == $.name) goto dontSend
+    goto sendIt
+
+    :noCards
+        log [Rodex] Nenhuma carta encontrada no inventário.
+        stop
+
+    :dontSend
+        log [Rodex] Você é o destinatário configurado. Não vai enviar cartas.
+        lock RodexCards
+        stop
+
+    :sendIt
+        $receiver = &config(rodexReceiver)
+        $mailTitle = Cartaaaaaaaaa
+        $mailBody = Cartaaaaaaaa
+
+        log [Rodex] Enviando até 5 cartas para $receiver
+        do rodex open
+        do rodex write $receiver
+        do rodex settarget $receiver
+        do rodex settitle $mailTitle
+        do rodex setbody $mailBody
+        do rodex setzeny 0
+
+        if ($cardCount >= 5) goto max
+        goto min
+
+        :max
+            $i = 0
+            while ($i < 5) {
+                log [Rodex] Adicionando carta com Index: $cardList[$i]
+                do rodex add $cardList[$i] 1
+                $i++
+            }
+            do rodex send
+            do rodex close
+            stop
+
+        :min
+            $i = 0
+            while ($i < $cardCount) {
+                log [Rodex] Adicionando carta com Index: $cardList[$i]
+                do rodex add $cardList[$i] 1
+                $i++
+            }
+            do rodex send
+            do rodex close
+            stop
+}
